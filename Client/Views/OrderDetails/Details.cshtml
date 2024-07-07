@@ -1,0 +1,37 @@
+﻿@model ApiProjectPRN231.Models.OrderDetails
+
+<h3>Order Details</h3>
+<div>
+    <h4>Order Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.OrderId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ProductId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.UnitPrice)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.UnitPrice)
+        </dd>
+    </dl>
+</div> 
+        <div>
+    <a asp-action="Edit" asp-route-orderId="@Model?.OrderId" asp-route-productId="@Model?.ProductId">Edit</a>
+            <a asp-action="Index">Back to List</a>
+        </div>

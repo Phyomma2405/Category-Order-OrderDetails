@@ -1,0 +1,64 @@
+﻿@model List<ApiProjectPRN231.Models.Order>
+
+@{
+    ViewData["Title"] = "Order List";
+}
+
+<h1>Order List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Status</th>
+            <th>Created Date</th>
+            <th>Updated Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.UserId</td>
+                <td>@order.StatusId</td>
+                <td>@order.CreatedDate</td>
+                <td>@order.UpdatedDate</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@order.Id">Details</a> |
+                    <a asp-action="Edit" asp-route-id="@order.Id">Edit</a> |
+                    <a class="delete btn btn-danger" asp-route-id="@order.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("table").on("click", "a.delete", function () {
+            var Id = $(this).attr("asp-route-id");
+            var ans = confirm("Are you sure you want to delete?");
+            if (ans) {
+                $.ajax({
+                    url: "https://localhost:8000/api/Orders/" + Id,
+                    type: "delete",
+                    contentType: "application/json",
+                    success: function (result, status, xhr) {
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr);
+                    }
+                });
+            }
+        });
+    });
+</script>

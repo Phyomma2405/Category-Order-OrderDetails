@@ -1,0 +1,54 @@
+﻿@model IEnumerable<ApiProjectPRN231.Models.Category>
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Category</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    <a class="delete btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("table").on("click", "a.delete", function () {
+            var Id = $(this).parents("tr").find("td:nth-child(1)").text();
+            var ans = confirm("Are you sure you want to delete?");
+            if (ans) {
+                $.ajax({
+                    url: "https://localhost:8000/api/Categories/" + Id,
+                    type: "delete",
+                    contentType: "application/json"
+                    success: function (result, status, xhr) {
+                        location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr);
+                    }
+                });
+            }
+        });
+    });
+</script>
